@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:poly/poly.dart';
 import 'dart:io';
 
@@ -180,9 +182,7 @@ main() async {
   //  * And as `diffNameThanIsInside:"Example String"` is passed,
   //  * Header row will be `latitude,longitude,Example String`
   // Get `ArePointsInside` as CSV String - `csvOfIsInsideResult`
-  String csvOfIsInsideResult = location_eleven.IsInsideResultWithXY_ToCSVString(
-      checkPoints,
-      diffNameThanIsInside: "Example String");
+  String csvOfIsInsideResult = location_eleven.IsInsideResultWithXY_ToCSVString(checkPoints, diffNameThanIsInside: "Example String");
   // Write `String csvOfIsInsideResult` to "IsInside.csv"
   File(nameOfIsInsideResult).writeAsStringSync(csvOfIsInsideResult);
   print('${++countCSV}. ArePointsInside Results saved to IsInside.csv ');
@@ -203,7 +203,7 @@ main() async {
   //* As, previously `xY_IsInside_ToCSVString` returned String with header
   //* because optional parameter `header` was not set to false
   final IsInsideList = File(nameOfIsInsideResult).openRead();
-  final l = await csvToListOfList(IsInsideList);
+  final l = await (csvToListOfList(IsInsideList) as FutureOr<List<List<dynamic>>>);
   print("${++countCSV}. e.g. here ${l[0][1]} and ${l[0][2]}");
 
   // Example of `csvToPoly`
